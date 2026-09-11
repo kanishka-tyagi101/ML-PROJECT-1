@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-# Abstract Base Class
+
 class Vehicle(ABC):
 
     def __init__(self, vehicle_id: str, model: str, base_rate: float):
@@ -9,29 +9,29 @@ class Vehicle(ABC):
         self.__model = model
         self.base_rate = base_rate
 
-    # Getter for vehicle_id
+    
     @property
     def vehicle_id(self):
         return self.__vehicle_id
 
-    # Getter for model
+    
     @property
     def model(self):
         return self.__model
 
-    # Getter for base_rate
+    
     @property
     def base_rate(self):
         return self.__base_rate
 
-    # Setter for base_rate with validation
+    
     @base_rate.setter
     def base_rate(self, rate):
         if rate <= 0:
             raise ValueError("Base rate must be greater than 0.")
         self.__base_rate = float(rate)
 
-    # Abstract methods
+    
     @abstractmethod
     def calculate_rental_cost(self, days: int) -> float:
         pass
@@ -41,7 +41,7 @@ class Vehicle(ABC):
         pass
 
 
-# Child Class: Car
+
 class Car(Vehicle):
 
     def __init__(self, vehicle_id: str, model: str,
@@ -53,11 +53,11 @@ class Car(Vehicle):
         self.num_doors = num_doors
         self.luxury_fee = luxury_fee
 
-    # Polymorphic method
+    
     def calculate_rental_cost(self, days: int) -> float:
         return (self.base_rate * days) + self.luxury_fee
 
-    # Polymorphic method
+    
     def display_details(self) -> None:
         print("Vehicle Type : Car")
         print("Vehicle ID   :", self.vehicle_id)
@@ -67,7 +67,7 @@ class Car(Vehicle):
         print("Luxury Fee   :", self.luxury_fee)
 
 
-# Child Class: Bike
+
 class Bike(Vehicle):
 
     def __init__(self, vehicle_id: str, model: str,
@@ -77,18 +77,18 @@ class Bike(Vehicle):
 
         self.engine_capacity = engine_capacity
 
-    # Polymorphic method
+    
     def calculate_rental_cost(self, days: int) -> float:
 
         cost = self.base_rate * days
 
-        # 10% discount for more than 5 days
+        
         if days > 5:
             cost = cost * 0.90
 
         return cost
 
-    # Polymorphic method
+    
     def display_details(self) -> None:
         print("Vehicle Type : Bike")
         print("Vehicle ID   :", self.vehicle_id)
@@ -97,7 +97,7 @@ class Bike(Vehicle):
         print("Engine CC    :", self.engine_capacity)
 
 
-# Creating objects
+
 car1 = Car("C101", "Toyota Camry", 2500, 4, 1000)
 car2 = Car("C102", "Honda City", 2000, 4)
 
@@ -105,23 +105,23 @@ bike1 = Bike("B101", "Royal Enfield Classic 350", 1000, 350)
 bike2 = Bike("B102", "Yamaha MT-15", 800, 155)
 
 
-# Store all vehicles in one list
+
 fleet = [car1, car2, bike1, bike2]
 
 
-# Sample rental duration
+
 days = 7
 
 print("========== VEHICLE RENTAL SYSTEM ==========")
 
-# Dynamic Polymorphism
+
 for vehicle in fleet:
     print("\n--------------------------------------------")
 
-    # Calls appropriate display_details()
+
     vehicle.display_details()
 
-    # Calls appropriate calculate_rental_cost()
+    
     cost = vehicle.calculate_rental_cost(days)
 
     print("Rental Duration:", days, "days")
